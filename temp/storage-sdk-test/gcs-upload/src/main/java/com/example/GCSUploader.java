@@ -5,7 +5,9 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageException;
 import com.google.cloud.storage.StorageOptions;
+import com.google.auth.oauth2.GoogleCredentials;
 import java.io.IOException;
+import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -53,8 +55,13 @@ public class GCSUploader {
             throw new IOException("File not found: " + filePath);
         }
 
+        GoogleCredentials credentials = GoogleCredentials.fromStream(
+            new FileInputStream("sga-prod-compute-ad216b698091.json")
+        );
+
         Storage storage = StorageOptions.newBuilder()
             .setProjectId(projectId)
+            .setCredentials(credentials)
             .build()
             .getService();
 
@@ -88,12 +95,13 @@ public class GCSUploader {
 
     public static void main(String[] args) {
 
-
         String projectId = getEnvVar(
             "GCP_PROJECT_ID",
+            "sga-prod-compute"
         );
         String bucketName = getEnvVar(
             "GCP_BUCKET_NAME",
+            ""
         );
         String objectName = getEnvVar("GCP_OBJECT_NAME", "test.txt");
         String filePath = getEnvVar("FILE_PATH", "test.txt");

@@ -1,7 +1,9 @@
 package com.example;
 
 import com.google.cloud.storage.*;
+import com.google.auth.oauth2.GoogleCredentials;
 import java.io.IOException;
+import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.slf4j.Logger;
@@ -41,8 +43,13 @@ public class GCSDownloader {
         String objectName,
         String destFilePath
     ) throws IOException {
+        GoogleCredentials credentials = GoogleCredentials.fromStream(
+            new FileInputStream("sga-prod-compute-ad216b698091.json")
+        );
+
         Storage storage = StorageOptions.newBuilder()
             .setProjectId(projectId)
+            .setCredentials(credentials)
             .build()
             .getService();
 
@@ -98,9 +105,11 @@ public class GCSDownloader {
     public static void main(String[] args) {
         String projectId = getEnvVar(
             "GCP_PROJECT_ID",
+            "sga-prod-compute"
         );
         String bucketName = getEnvVar(
             "GCP_BUCKET_NAME",
+            ""
         );
         String objectName = getEnvVar("GCP_OBJECT_NAME", "test.txt");
         String destFilePath = getEnvVar(

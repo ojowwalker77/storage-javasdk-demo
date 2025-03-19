@@ -7,11 +7,17 @@ fi
 
 ACTION="$1"
 
-export GCP_PROJECT_ID=""
-export GCP_BUCKET_NAME=""
+export GCP_PROJECT_ID="sga-prod-compute"
+export GCP_BUCKET_NAME="sgasav-uploads"
 export GCP_OBJECT_NAME="test.txt"
-export FILE_PATH=""
+export FILE_PATH="test.txt"
 export DEST_FILE_PATH="downloaded_test.txt"
+
+# Create a test file if it doesn't exist
+if [ ! -f "$FILE_PATH" ]; then
+  echo "Creating test file: $FILE_PATH"
+  echo "This is a test file for GCS upload/download" > "$FILE_PATH"
+fi
 
 MAVEN_COMMAND=""
 

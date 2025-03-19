@@ -2,3 +2,6 @@ env.sh
 test.txt
 downloaded_test.txt
 target/
+DownloadS3Servlet.java
+S3Uploader.java
+sga-prod-compute-ad216b698091.json
