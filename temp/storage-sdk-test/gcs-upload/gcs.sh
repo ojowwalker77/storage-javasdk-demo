@@ -7,8 +7,8 @@ fi
 
 ACTION="$1"
 
-export GCP_PROJECT_ID="sga-prod-compute"
-export GCP_BUCKET_NAME="sgasav-uploads"
+export GCP_PROJECT_ID=""
+export GCP_BUCKET_NAME=""
 export GCP_OBJECT_NAME="test.txt"
 export FILE_PATH="test.txt"
 export DEST_FILE_PATH="downloaded_test.txt"

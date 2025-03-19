@@ -5,3 +5,5 @@ target/
 DownloadS3Servlet.java
 S3Uploader.java
 sga-prod-compute-ad216b698091.json
+lib/
+.vscode/
